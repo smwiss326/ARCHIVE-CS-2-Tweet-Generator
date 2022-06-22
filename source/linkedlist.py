@@ -34,7 +34,7 @@ class LinkedList(object):
         return 'LinkedList({!r})'.format(self.items())
 
     def items(self):
-        """Return a list (dynamic array) of all items in this linked list.
+        """Return <<<<CHANGE HERE @STEPHEN>>>> a list (dynamic array) of all items in this linked list.
         Best and worst case running time: O(n) for n items in the list (length)
         because we always need to loop through all n nodes to get each item."""
         items = []  # O(1) time to create empty list
