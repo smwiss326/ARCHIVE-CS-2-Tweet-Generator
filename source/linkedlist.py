@@ -1,12 +1,12 @@
 #!python
 
-
-from array import array
+#TODO: I recommend removing any imports that you aren't using to keep the code clean. -Tanner
+#from array import array
 from genericpath import exists
-from http.client import NETWORK_AUTHENTICATION_REQUIRED
-from msvcrt import LK_LOCK
-from platform import node
-import struct
+#from http.client import NETWORK_AUTHENTICATION_REQUIRED
+#from msvcrt import LK_LOCK
+#from platform import node
+#import struct
 
 
 class Node(object):
@@ -39,8 +39,12 @@ class LinkedList(object):
 
     def __repr__(self):
         """Return a string representation of this linked list."""
-        return repr(self)
-        self = __repr__()
+        # TODO: I'm not sure what you were trying to do with these two lines, but __repr__ defines what happens when you
+        # call repr, so by calling repr(self) in the definition of repr, your going to cause it to call repr over and
+        # over until it kills itself from running out of memory. You also can't have two different returns in the same
+        # function because return exits the function, so anything after the first won't even run. -Tanner
+        # return repr(self)
+        # self = __repr__()
         return 'LinkedList({!r})'.format(self.items(self))
 
     def items(self):
@@ -61,11 +65,13 @@ class LinkedList(object):
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
         return self.head is None
-        return bool(self)
+        # TODO: As mentioned above, you can't call code after a return. Additionally, casting the linked list as a bool
+        # doesn't really make sense. -Tanner
+        #return bool(self)
         
-        
-        
-        
+        #TODO: Typically you want to remove any unneeded whitespace. It technically doesn't impact the code from
+        #functioning correctly, but it will make the code look much nicer and also avoid setting off people's OCD haha.
+        #-Tanner
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
@@ -77,8 +83,7 @@ class LinkedList(object):
             temp=temp.next
         return count
         
-        # TODO: Loop through all nodes and count one for each
-        
+        # TODO: Loop through all nodes and count one for each        
     
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -89,16 +94,13 @@ class LinkedList(object):
         if self.head is None:
              self.head = appended_node
              self.tail = appended_node
+             #TODO: These last two cases can actually be combined. Can you think of how? -Tanner
         elif self.head.next is None:
              self.head.next = appended_node
              self.tail = appended_node
         else:
             self.tail.next = appended_node
             self.tail = appended_node
-        
-                
-      
-        
         
         # TODO: Create new node to hold given item
         # TODO: Append node after tail, if it exists
@@ -108,6 +110,8 @@ class LinkedList(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         prepended_node = Node(item)
         
+        #TODO: The logic here is not quite right. Think through what is happening to the head and tail values. When you
+        # reach this point, come to my office and we can walk through what's happening. -Tanner
         if self.tail is None:
              self.tail = prepended_node
              self.head = prepended_node
@@ -120,7 +124,7 @@ class LinkedList(object):
             
         prepended_node.next = self.head
         self.head = prepended_node
-         # TODO: Create new node to hold given item
+        # TODO: Create new node to hold given item
         # TODO: Prepend node before head, if it exists
         
     def find(self, quality):
@@ -129,16 +133,16 @@ class LinkedList(object):
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+        #TODO: You're really close here. What you've written will tell you if the value of quality is in the list or
+        #not, but reread the functions description. quality is a function, not a value, which you pass the item into. If
+        #that function returns True, then you should return the item. It doesn't specifically mention what to return in
+        #the case where it's not found, but I would return None in that case. -Tanner
         current = self.head
         while current != None:
             if current.data == quality:
                 return True
             current = current.next
         return False
-           
-        
-        
-       
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -148,9 +152,20 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
+        #TODO: You won't be able to loop this way by default. It's possible to set it up to do so, but that's a topic
+        #for another day. What you'll need to do instead is loop similarly to how you did it in find. -Tanner
         for item in self:
+            #TODO: This if statement doesn't really make sense. Indexing, which is what you're trying to do with the [],
+            #is another feature that's not available out of the box, so you would have to write that. exists is also a
+            #random function that you imported which checks if a filepath is valid. Definitely not what you want in this
+            #case. So essentially what this if statement is trying to do is check if something in your list named 'item'
+            #is set to the value of the function named exists. -Tanner
             if self['item'] == exists:
+                #TODO: del isn't what you want in this case. del is used to make it so a variable no longer exists.
+                #What you need to do instead and manage the links between the node before and the node after the node
+                #which has that item. -Tanner
                 del(item)
+                #TODO: You don't need to return anything in this case. -Tanner
                 return self
             raise ValueError('Item not found: {}'.format(item))
 
