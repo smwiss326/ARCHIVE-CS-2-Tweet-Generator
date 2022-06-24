@@ -1,6 +1,14 @@
 #!python
 
 
+from array import array
+from genericpath import exists
+from http.client import NETWORK_AUTHENTICATION_REQUIRED
+from msvcrt import LK_LOCK
+from platform import node
+import struct
+
+
 class Node(object):
 
     def __init__(self, data):
@@ -31,7 +39,9 @@ class LinkedList(object):
 
     def __repr__(self):
         """Return a string representation of this linked list."""
-        return 'LinkedList({!r})'.format(self.items())
+        return repr(self)
+        self = __repr__()
+        return 'LinkedList({!r})'.format(self.items(self))
 
     def items(self):
         """Return <<<<CHANGE HERE @STEPHEN>>>> a list (dynamic array) of all items in this linked list.
@@ -51,30 +61,84 @@ class LinkedList(object):
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
         return self.head is None
+        return bool(self)
+        
+        
+        
+        
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(???) Why and under what conditions?"""
+        temp=self.head
+        count=0
+        while temp:
+            count+=1
+            temp=temp.next
+        return count
+        
         # TODO: Loop through all nodes and count one for each
-
+        
+    
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
+        
+        appended_node = Node(item)
+        
+        if self.head is None:
+             self.head = appended_node
+             self.tail = appended_node
+        elif self.head.next is None:
+             self.head.next = appended_node
+             self.tail = appended_node
+        else:
+            self.tail.next = appended_node
+            self.tail = appended_node
+        
+                
+      
+        
+        
         # TODO: Create new node to hold given item
         # TODO: Append node after tail, if it exists
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
+        prepended_node = Node(item)
+        
+        if self.tail is None:
+             self.tail = prepended_node
+             self.head = prepended_node
+        elif self.tail.next is None:
+             self.tail.next = prepended_node
+             self.head = prepended_node
+        else:
+            self.head.next = prepended_node
+            self.head = prepended_node
+            
+        prepended_node.next = self.head
+        self.head = prepended_node
+         # TODO: Create new node to hold given item
         # TODO: Prepend node before head, if it exists
-
+        
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+        current = self.head
+        while current != None:
+            if current.data == quality:
+                return True
+            current = current.next
+        return False
+           
+        
+        
+       
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -84,7 +148,11 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
-
+        for item in self:
+            if self['item'] == exists:
+                del(item)
+                return self
+            raise ValueError('Item not found: {}'.format(item))
 
 def test_linked_list():
     ll = LinkedList()
